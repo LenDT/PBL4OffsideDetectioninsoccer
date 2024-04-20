@@ -32,9 +32,11 @@ def get_vertical_lines(image , side):
         maxLineGap = 1250
         lines = cv2.HoughLines(edges,1,np.pi/180, 200)
         if lines.any():
-            if len(lines) > 2:  
+            if len(lines) > 2: 
+                print("CHieuDai",len(lines)) 
                 linesFound = True  
             else: 
+                print("CHieuDai",len(lines)) 
                 BlueRedMask -= 10
 
     
@@ -86,6 +88,7 @@ def get_vertical_lines(image , side):
                         cv2.line(image,(x1,y1), (x2,y2), (0,0,255),1)
                         cv2.putText(image, str((theta * 180 * 7 / 22)) ,(int((x2))  ,  int((y2))) , cv2.FONT_HERSHEY_SIMPLEX, 1, (200,255,155), 2, cv2.LINE_AA)
                         cv2.putText(image, str((theta * 180 * 7 / 22)) ,(int((x1))  ,  int((y1))) , cv2.FONT_HERSHEY_SIMPLEX, 1, (200,255,155), 2, cv2.LINE_AA)
+                        print("Angle", (theta * 180 * 7 / 22))
         if len(selectedLines) < 2:
             if rLimit >= 75:
                 rLimit -= 10
@@ -257,7 +260,9 @@ def find_intersections(lines):
 def get_vertical_vanishing_point(img , side):
     
     selectedLines = get_vertical_lines(img , side)
+    print(selectedLines)
     intersectionPoints = find_intersections(selectedLines)
+    print(intersectionPoints)
     vanishingPointX = 0.0
     vanishingPointY = 0.0
     for point in intersectionPoints:

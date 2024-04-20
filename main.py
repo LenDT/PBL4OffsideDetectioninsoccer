@@ -44,13 +44,18 @@ for file_itr in range(len(fileNames)):
 	# calculate vanishing points
 	imageForVanishingPoints = cv2.imread(fileNames[file_itr])
 	vertical_vanishing_point = get_vertical_vanishing_point(imageForVanishingPoints, goalDirection)
+	print(vertical_vanishing_point)
 	horizontal_vanishing_point = get_horizontal_vanishing_point(imageForVanishingPoints)
+	print(horizontal_vanishing_point)
 	cv2.imwrite(vanishing_point_viz_base_path+tempFileNames[file_itr], imageForVanishingPoints)
 	print('Finished Vanishing Point calculation')
 	# get pose estimaitons and team classifications
 	imageForPoseEstimation = cv2.imread(fileNames[file_itr])
 	imageForPoseEstimation_2 = imread(fileNames[file_itr], mode='RGB')
 	pose_estimations, isKeeperFound, isRefFound, temp_image = PoseGetter.return_pose(imageForPoseEstimation_2, imageForPoseEstimation, keeper, referee)
+	print(pose_estimations)
+	print(isKeeperFound)
+	print(isRefFound)
 	cv2.imwrite(temp_viz_base_path+tempFileNames[file_itr], temp_image)
 	pose_estimations = sorted(pose_estimations, key=lambda x : x[-1][0])
 	pose_estimations = update_pose_left_most_point(vertical_vanishing_point, horizontal_vanishing_point, pose_estimations, imageForPoseEstimation, goalDirection)
