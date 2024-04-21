@@ -4,6 +4,7 @@ import itertools
 import random
 from itertools import starmap
 import math
+import matplotlib.pyplot as plt
 
 def get_vertical_lines(image , side):
     img = image
@@ -17,17 +18,21 @@ def get_vertical_lines(image , side):
     
     while linesFound == False:
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        plt.imshow(hsv)
         mask = cv2.inRange(hsv, (35, BlueRedMask, BlueRedMask), (70, 255,255))
+        plt.imshow(mask)
         imask = mask>0
         green = np.zeros_like(img, np.uint8)
         green[imask] = img[imask]
         gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
         v = np.median(green)
+        plt.imshow(green)
         sigma = 0.33
         lower = int(max(0, (1.0 - sigma) * v))
         upper = int(min(255, (1.0 + sigma) * v))
         cv2.imwrite('green.jpg', green)
         edges = cv2.Canny(green,150,250,apertureSize = 3) 
+        print(edges)
         minLineLength = 1
         maxLineGap = 1250
         lines = cv2.HoughLines(edges,1,np.pi/180, 200)
