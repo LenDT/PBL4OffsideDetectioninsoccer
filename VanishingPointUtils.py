@@ -30,7 +30,7 @@ def get_vertical_lines(image , side):
         sigma = 0.33
         lower = int(max(0, (1.0 - sigma) * v))
         upper = int(min(255, (1.0 + sigma) * v))
-        cv2.imwrite('green.jpg', green)
+        # cv2.imwrite('green.jpg', green)
         edges = cv2.Canny(green,150,250,apertureSize = 3) 
         print(edges)
         minLineLength = 1
@@ -162,7 +162,7 @@ def get_horizontal_lines(image):
                     if isLineValid:
                         selectedLines.append([[x1,y1],[x2,y2]])
                         selectedLinesParams.append([r, theta])
-                        # cv2.line(image,(x1,y1), (x2,y2), (0,0,255),1)
+                        cv2.line(image,(x1,y1), (x2,y2), (0,0,255),1)
         if len(selectedLines) < 2:
             if rLimit >= 75:
                 rLimit -= 10
