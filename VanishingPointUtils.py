@@ -30,7 +30,7 @@ def get_vertical_lines(image , side):
         sigma = 0.33
         lower = int(max(0, (1.0 - sigma) * v))
         upper = int(min(255, (1.0 + sigma) * v))
-        # cv2.imwrite('green.jpg', green)
+        cv2.imwrite('green.jpg', green)
         edges = cv2.Canny(green,150,250,apertureSize = 3) 
         print(edges)
         minLineLength = 1
